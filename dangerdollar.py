@@ -278,6 +278,7 @@ def pass_danger(context):
 
       #  print(saved_data_base)
        setDangerLocal(new_danger_player, idx)
+       setDanger(guildId, new_danger_player)
       #  print(saved_data_base)
 
 
