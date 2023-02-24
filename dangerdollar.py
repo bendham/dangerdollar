@@ -172,8 +172,10 @@ def init_user(ctx):
 
         new_guild_db = getGuildFromDb(guildid, dynamoDB)
 
+        guild, idx = findGuild(new_guild_db, guildid)
+
         global saved_data_base
-        saved_data_base[guildid] = new_guild_db
+        saved_data_base[idx] = new_guild_db
 
         return f"Welcome to {NET_NAME} {at_user(userid)}, may the danger find you."
     
