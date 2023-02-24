@@ -170,12 +170,12 @@ def init_user(ctx):
         # Add user
         set_user(guildid, userid, STARTING_COINS, dynamoDB)
 
-        new_guild_db = getGuildFromDb(guildid, dynamoDB)
+        new_db = getDb(guildid, dynamoDB)
 
-        guild, idx = findGuild(new_guild_db, guildid)
+        guild, idx = findGuild(new_db, guildid)
 
         global saved_data_base
-        saved_data_base[idx] = new_guild_db
+        saved_data_base[idx] = new_db[idx]
 
         return f"Welcome to {NET_NAME} {at_user(userid)}, may the danger find you."
     
