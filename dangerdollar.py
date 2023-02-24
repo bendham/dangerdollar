@@ -54,11 +54,14 @@ async def time_keeping_task():
 
               setDangerLocal(new_danger_player, idx)
 
-              if(textChannel):
-                  await textChannel.send(f"TIMES UP!\n{at_user(dangeredid)} has lost everything. At least they are not dangerous anymore.\n{at_user(new_danger_player)} is now dangerous!")
-              
-              dynamo, _ = setUserCoins(guild['GuildID'], dangeredid, 0, returnDynamodb=True)
-              
+              if int(dangeredid) != 0: 
+                if(textChannel):
+                    await textChannel.send(f"TIMES UP!\n{at_user(dangeredid)} has lost everything. At least they are not dangerous anymore.\n{at_user(new_danger_player)} is now dangerous!")
+                
+                dynamo, _ = setUserCoins(guild['GuildID'], dangeredid, 0, returnDynamodb=True)
+              else:
+                 await textChannel.send(f"{at_user(new_danger_player)} is now dangerous!")
+                 
               setDanger(guild['GuildID'], new_danger_player, dynamo)
 
             idx +=1 
