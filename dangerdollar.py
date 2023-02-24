@@ -61,7 +61,7 @@ async def time_keeping_task():
                 dynamo, _ = setUserCoins(guild['GuildID'], dangeredid, 0, returnDynamodb=True)
               else:
                  await textChannel.send(f"{at_user(new_danger_player)} is now dangerous!")
-                 
+
               setDanger(guild['GuildID'], new_danger_player, dynamo)
 
             idx +=1 
@@ -242,7 +242,7 @@ def is_danger(context):
     if(is_dangerous(guild, usernameId)):
        return f"{at_user(usernameId)} is dangerous!"
 
-    return f"You are not dangerous. {at_user(usernameId)} is!"
+    return f"You are not dangerous."
   
   else:
     return f"Hey {at_user(usernameId)}, you are not dangerour yet. {COMMAND_SYMBOL}join to partake in the danger."
