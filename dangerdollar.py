@@ -162,7 +162,7 @@ def init_user(ctx):
     userid = username.id
     guildid = ctx.guild.id
 
-    userDb, dynamoDB = getUserFromDb(guildid, userid, None,True)
+    userDb, dynamoDB = getUserFromDb(guildid, userid, returnDynamodb=True)
 
     if userDb:
         return f"{at_user(userid)}, you are already on {NET_NAME}. Stop scamming the danger."
@@ -170,7 +170,7 @@ def init_user(ctx):
         # Add user
         set_user(guildid, userid, STARTING_COINS, dynamoDB)
 
-        new_db = getDb(guildid, dynamoDB)
+        new_db = getDb(dynamoDB)
 
         guild, idx = findGuild(new_db, guildid)
 
