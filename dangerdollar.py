@@ -28,7 +28,7 @@ data_base = {}
 bot: Bot = Bot(command_prefix=COMMAND_SYMBOL, case_insensitive=True, intents=intents)
 
 
-@loop(seconds=DANGER_LENGTH_SECONDS, count=None)
+@loop(hours=DANGER_LENGTH_HOURS, count=None)
 async def time_keeping_task():
     global  start_time
     global saved_data_base
@@ -136,18 +136,19 @@ def view_time(ctx):
 
         cur_time = time.time()
 
-        left_time = DANGER_LENGTH_SECONDS - (cur_time - start_time)
+        left_time_seconds = DANGER_LENGTH_HOURS*60*60 - (cur_time - start_time)
 
         # print(left_time)
 
-        secs =left_time
+        hours_decimal = left_time_seconds/60.0/60.0
 
-        mins = left_time/60
-        hours = math.floor(mins/24)
+        hours = math.floor(hours_decimal)
 
-        mins = math.floor(mins - hours*24)
+        mins_decimal = (hours_decimal-hours)*60.0
 
-        secs = secs - mins*60 - hours*24*60
+        mins = math.floor(mins_decimal)
+
+        secs = (mins_decimal - mins)*60.0
 
         if(hours != 0):
             return f"{hours} h {mins} min {int(secs)} s is left."
