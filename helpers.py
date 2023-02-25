@@ -212,6 +212,13 @@ def get_losing_text():
   
   return random.choice(losing_array)
 
+def get_random_text(type):
+
+  with open("words.json", 'r') as f:
+    array = json.load(f)[type]
+  
+  return random.choice(array)
+
 
 def buildUpdateMessage(text):
   embed = discord.Embed(title="==== UPDATE ALERT ====", color=0xa9ce46)

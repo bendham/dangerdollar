@@ -150,13 +150,17 @@ def view_time(ctx):
 
         secs = (mins_decimal - mins)*60.0
 
+        time_string = get_random_text("time")
+
         if(hours != 0):
-            return f"{hours} h {mins} min {int(secs)} s is left."
+            return time_string.format(f"{hours} h {mins} min {int(secs)} s")
         
         if(mins != 0):
-           return f"{mins} min {int(secs)} s is left."
+           return time_string.format(f"{mins} min {int(secs)} s")
         
-        return f"{secs:.4} s is left."
+        return time_string.format(f"{secs:.4} s")
+    
+        
             
 
     else: 
@@ -241,12 +245,12 @@ def is_danger(context):
        return f"You need {DANGER_PLAYER_MIN} players to start the danger."
     
     if(is_dangerous(guild, usernameId)):
-       return f"{at_user(usernameId)} is dangerous!"
+       return f"{at_user(usernameId)} {get_random_text('is_danger')}"
 
-    return f"You are not dangerous."
+    return get_random_text('not_danger')
   
   else:
-    return f"Hey {at_user(usernameId)}, you are not dangerour yet. {COMMAND_SYMBOL}join to partake in the danger."
+    return f"Hey {at_user(usernameId)}, you are not dangerous yet. {COMMAND_SYMBOL}join to partake in the danger."
 
 
 def pass_danger(context):

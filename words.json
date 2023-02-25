@@ -1,0 +1,40 @@
+{
+  "time": [
+    "The time is {0}, so yenno, enough to eat a steak",
+    "{0} until my birthday",
+    "{0} is left.",
+    "{0}. Relax, there is time.",
+    "{0}. I'd start to worry if I was you."
+  ],
+  "pass": [],
+  "not_danger": [
+    "You are too nice to be dangerous",
+    "You are essentially a kitten",
+    "As soft as cotton balls",
+    "Dangerous? You are not even close to being that",
+    "Huh...uhhhh...nope...you got nothing to worry about",
+    "Is it raining cats and dogs? No? Then you got nothing to worry about",
+    "Take a deep breath, you don't have to worry about a thing",
+    "Stop stressing, you are stressing me out",
+    "Right now it's impossible for you to be dangerous",
+    "May I have an order of not dangerous please",
+    "Couldn't be you.",
+    "When in doubt check the table",
+    "Nah"
+  ],
+  "is_danger": [
+    "Run.",
+    "Everyone is frightened of you",
+    "Scary as a lion",
+    "All I will say is if I was a dragon, even I would be scared of you",
+    "You have the power",
+    "It's not you that's scary, it's your dance moves. Still dangerous though.",
+    "You're as dangerous as musch as 1+1 = 2",
+    "Kittens don't like you",
+    "At this rate, even your mom will think you are dangerous",
+    "Basically Evil Knievel jumping over a canyon. Dangerous.",
+    "Hmm, you haven't heard the news?",
+    "Even your mirror is horrified of you",
+    "Welp, ya you are"
+  ]
+}
