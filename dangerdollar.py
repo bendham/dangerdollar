@@ -26,7 +26,7 @@ data_base = {}
 
 
 bot: Bot = Bot(command_prefix=COMMAND_SYMBOL, case_insensitive=True, intents=intents)
-
+pass_lock = asyncio.Lock()
 
 @loop(hours=DANGER_LENGTH_HOURS, count=None)
 async def time_keeping_task():
@@ -36,7 +36,7 @@ async def time_keeping_task():
     if(start_time != 0):
         # dataBase, dynamo = getDb(returnDynamo=True)
 
-
+      async with pass_lock:
         # Update dangered people
         idx = 0
         for guild in saved_data_base:
@@ -112,7 +112,7 @@ async def on_message(ctx):
 
 @bot.command(name="pass", help="Pass the danger")
 async def on_message(ctx):
-    await ctx.channel.send(pass_danger(ctx))
+    await ctx.channel.send(await pass_danger(ctx))
 
 
 @bot.command(name="table", help="See all the danger")
@@ -253,7 +253,7 @@ def is_danger(context):
     return f"Hey {at_user(usernameId)}, you are not dangerous yet. {COMMAND_SYMBOL}join to partake in the danger."
 
 
-def pass_danger(context):
+async def pass_danger(context):
   username = context.author
   usernameId = username.id
   guildId = context.guild.id
@@ -261,38 +261,38 @@ def pass_danger(context):
 #   userDb, dynamo = getUserFromDb(guildId, usernameId, returnDynamodb=True)
   global saved_data_base
 
+  async with pass_lock:
+    guild_data, idx = findGuild(saved_data_base, guildId)
 
-  guild_data, idx = findGuild(saved_data_base, guildId)
-
-  # print(guild_data['current'])
-  if str(usernameId) in guild_data['current']:
-    # guild = getGuildFromDb(guildId, dynamo)
-
-
-    player_count = len(guild_data['current'])
-
-    if(player_count < DANGER_PLAYER_MIN):
-       return f"You need {DANGER_PLAYER_MIN} players to start the danger."
-    if(is_dangerous(guild_data, usernameId)):
-       
-       players = guild_data['current'].copy()
-       del players[str(usernameId)]
+    # print(guild_data['current'])
+    if str(usernameId) in guild_data['current']:
+      # guild = getGuildFromDb(guildId, dynamo)
 
 
-       new_danger_player = random.choice(list(players))
+      player_count = len(guild_data['current'])
 
+      if(player_count < DANGER_PLAYER_MIN):
+        return f"You need {DANGER_PLAYER_MIN} players to start the danger."
+      if(is_dangerous(guild_data, usernameId)):
+        
+        players = guild_data['current'].copy()
+        del players[str(usernameId)]
+
+
+        new_danger_player = random.choice(list(players))
+
+        #  print(saved_data_base)
+        setDangerLocal(new_danger_player, idx)
+        setDanger(guildId, new_danger_player)
       #  print(saved_data_base)
-       setDangerLocal(new_danger_player, idx)
-       setDanger(guildId, new_danger_player)
-      #  print(saved_data_base)
 
 
-       return f"{at_user(new_danger_player)} is now dangerous!"
+        return f"{at_user(new_danger_player)} is now dangerous!"
        
     
-    return f"Can't pass something you don't have."
-  else:
-    return f"Hey {at_user(usernameId)}, you are not dangerous yet. {COMMAND_SYMBOL}join to partake in the danger."
+      return f"Can't pass something you don't have."
+    else:
+      return f"Hey {at_user(usernameId)}, you are not dangerous yet. {COMMAND_SYMBOL}join to partake in the danger."
   
 # def pass_danger(context):
 #   username = context.author
