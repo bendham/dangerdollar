@@ -64,7 +64,11 @@ async def time_keeping_task():
 
               setDanger(guild['GuildID'], new_danger_player, dynamo)
 
+              
+
             idx +=1 
+            
+        # saved_data_base = getDb()
 
 
 
